@@ -89,3 +89,4 @@ lmoments/split.pl
 lmoments/lmoments.ps
 lmoments/Makefile.tests
 lmoments/disclaim.txt
+META.yml                                 Module meta-data (added by MakeMaker)

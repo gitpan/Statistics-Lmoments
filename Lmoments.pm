@@ -5,7 +5,7 @@ use Carp;
 use vars qw($VERSION @ISA @EXPORT %EXPORT_TAGS @EXPORT_OK
 	    @distributions %parameters);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 @distributions = ('EXP',#     Exponential distribution
 		  'GAM',#     Gamma distribution
@@ -40,8 +40,8 @@ require DynaLoader;
 @ISA = qw(Exporter DynaLoader);
 @EXPORT = qw();
 
-%EXPORT_TAGS = ();
-@EXPORT_OK = qw();
+%EXPORT_TAGS = (all  => [ qw ( @distributions %parameters &sam &lrm &pel &cdf &qua &analysis ) ]);
+@EXPORT_OK = qw(@distributions %parameters &sam &lrm &pel &cdf &qua &analysis);
 
 bootstrap Statistics::Lmoments $VERSION;
 
@@ -53,7 +53,7 @@ Statistics::Lmoments
 
 =head1 SYNOPSIS
 
-use Statistics::Lmoments;
+use Statistics::Lmoments qw(:all);
 
 my @x = (..data here..);
 
@@ -61,18 +61,18 @@ my @x = (..data here..);
 @x = sort {$a<=>$b} @x;
 
 # calculate the "unbiased" first 5 L-moments
-$xmom = &Statistics::Lmoments::sam('lmu',\@x, 5);
+$xmom = sam('lmu',\@x, 5);
     mtest(@{$xmom});
 }
 
-foreach (@Statistics::Lmoments::distributions) {
+foreach (@distributions) {
     next if /^KAP/;
-    my $para = &Statistics::Lmoments::pel($_,$xmom);
+    my $para = pel($_,$xmom);
 # @{$para} is the estimated parameter vector for the specified distribution 
     mtest($_);
     mtest(@{$para});
     my $x = 100;
-    my $F = &Statistics::Lmoments::cdf($_,$x,$para);
+    my $F = cdf($_,$x,$para);
 # $F is the value of the cdf at 100 for this distribution
 }
 
@@ -232,7 +232,7 @@ sub analysis {
 
 =head1 AUTHOR
 
-Ari Jolma, ajolma@water.hut.fi
+Ari Jolma, ari.jolma@hut.fi
 
 =head1 SEE ALSO
 

@@ -4,3 +4,5 @@ Revision history for Perl extension Lmoments.
 	- original version; created by hand
 0.02  Oct 22 2003
 	- Statistics::Lmoments submitted to CPAN
+0.03  Feb 1 2004
+	- META.yml, qw:all imports functions and variables
